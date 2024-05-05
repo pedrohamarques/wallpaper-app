@@ -7,7 +7,10 @@ import { colors, fontWeights, radius } from "@/constants/theme";
 
 import { hp, wp } from "@/utils/common";
 
+import { useWelcomeScreen } from "@/hooks/app/welcome.hook";
+
 export default function WelcomeScreen() {
+    const { handleStartPress } = useWelcomeScreen();
     return (
         <View style={styles.container}>
             <StatusBar style='light' />
@@ -43,7 +46,9 @@ export default function WelcomeScreen() {
                     </Animated.Text>
 
                     <Animated.View entering={FadeInDown.delay(600).springify()}>
-                        <Pressable style={styles.startButton}>
+                        <Pressable
+                            style={styles.startButton}
+                            onPress={handleStartPress}>
                             <Text style={styles.startText}>Start Explore</Text>
                         </Pressable>
                     </Animated.View>
