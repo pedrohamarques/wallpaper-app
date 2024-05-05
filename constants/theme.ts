@@ -1,3 +1,5 @@
+import { TextStyle } from "react-native";
+
 export const colors = {
     white: "#fff",
     black: "#000",
@@ -6,9 +8,9 @@ export const colors = {
 };
 
 export const fontWeights = {
-    medium: "500",
-    semiBold: "600",
-    bold: "700",
+    medium: "500" as TextStyle["fontWeight"],
+    semiBold: "600" as TextStyle["fontWeight"],
+    bold: "700" as TextStyle["fontWeight"],
 };
 
 export const radius = {
