@@ -1,6 +1,11 @@
-import { CategoriesTypes } from "@/constants/data";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { CategoriesTypes } from "@/constants/data";
+
+import { apiCall } from "@/services/api";
+
+import { Hit } from "@/typings/responses";
 
 export function useHomeScreen() {
     const { top } = useSafeAreaInsets();
@@ -8,6 +13,7 @@ export function useHomeScreen() {
     const [search, setSearch] = useState("");
     const [activeCategory, setActiveCategory] =
         useState<null | CategoriesTypes>(null);
+    const [images, setImages] = useState<Hit[]>([]);
 
     const searchInputRef = useRef(null);
 
@@ -17,7 +23,19 @@ export function useHomeScreen() {
         setActiveCategory(category);
     }
 
-    console.log(activeCategory);
+    async function fetchImages() {
+        const response = await apiCall({ page: 1 });
+        if (response.success && response.data?.hits) {
+            setImages(previousImages => [
+                ...previousImages,
+                ...response.data.hits,
+            ]);
+        }
+    }
+
+    useEffect(() => {
+        fetchImages();
+    }, []);
 
     return {
         paddingTop,
@@ -26,5 +44,6 @@ export function useHomeScreen() {
         activeCategory,
         setSearch,
         handleChangeCategory,
+        images,
     };
 }

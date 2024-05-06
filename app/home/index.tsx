@@ -9,6 +9,7 @@ import {
 import { Feather, FontAwesome6, Ionicons } from "@expo/vector-icons";
 
 import { Categories } from "@/components/categories";
+import { ImageGrid } from "@/components/image-grid";
 
 import { colors, fontWeights, radius } from "@/constants/theme";
 
@@ -22,6 +23,7 @@ export default function HomeScreen() {
         search,
         searchInputRef,
         activeCategory,
+        images,
         setSearch,
         handleChangeCategory,
     } = useHomeScreen();
@@ -75,6 +77,15 @@ export default function HomeScreen() {
                         testID='app.home.categories'
                     />
                 </View>
+
+                <View>
+                    {images.length > 0 && (
+                        <ImageGrid
+                            images={images}
+                            testID='app.home.image-grid'
+                        />
+                    )}
+                </View>
             </ScrollView>
         </View>
     );
@@ -122,4 +133,5 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: radius.sm,
     },
+    categories: {},
 });
